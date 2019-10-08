@@ -64,7 +64,7 @@ def test() -> None:
         literalinclude_id = FileId("driver-examples/DocumentationExamples.cs")
         with project._lock:
             assert list(
-                project._project._expensive_operation_cache.get_versions(
+                project._project.expensive_operation_cache.get_versions(
                     literalinclude_id
                 )
             ) == [1, 1]
@@ -79,7 +79,7 @@ def test() -> None:
         time.sleep(0.1)
         with project._lock:
             assert list(
-                project._project._expensive_operation_cache.get_versions(
+                project._project.expensive_operation_cache.get_versions(
                     literalinclude_id
                 )
             ) == [2, 2]
@@ -88,7 +88,7 @@ def test() -> None:
         figure_id = FileId("images/compass-create-database.png")
         with project._lock:
             assert list(
-                project._project._expensive_operation_cache.get_versions(figure_id)
+                project._project.expensive_operation_cache.get_versions(figure_id)
             ) == [1]
         with project.config.source_path.joinpath(figure_id).open(mode="r+b") as f:
             text = f.read()
@@ -99,7 +99,7 @@ def test() -> None:
         time.sleep(0.1)
         with project._lock:
             assert list(
-                project._project._expensive_operation_cache.get_versions(figure_id)
+                project._project.expensive_operation_cache.get_versions(figure_id)
             ) == [2]
 
         # Ensure that the page has been reparsed 3 times
